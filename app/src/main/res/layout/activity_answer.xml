@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     app:cardCornerRadius="5dp"
     app:cardElevation="28dp"
-    tools:context=".AnswerActivity">
+    tools:context=".view.AnswerActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
