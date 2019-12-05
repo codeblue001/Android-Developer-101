@@ -1,4 +1,4 @@
-package code.blue.androiddeveloper101;
+package code.blue.androiddeveloper101.viewmodel;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,15 +9,18 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.List;
 
-import code.blue.androiddeveloper101.Model.QuestionPojo;
+import code.blue.androiddeveloper101.model.QuestionPojo;
+import code.blue.androiddeveloper101.R;
 
 public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomViewHolder> {
 
-    private ArrayList<QuestionPojo> mQuestion = new ArrayList<>();
+    private List<QuestionPojo> mQuestion;
 
-    public CustomAdapter(ArrayList<QuestionPojo> mQuestion) {
-        this.mQuestion = mQuestion;
+    public void setData(List<QuestionPojo> quesList){
+        mQuestion = quesList;
+        notifyDataSetChanged();
     }
 
     @NonNull
@@ -29,14 +32,13 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
 
     @Override
     public void onBindViewHolder(@NonNull CustomViewHolder holder, int position) {
-            holder.question.setText(mQuestion.get(position).getQuestion());
-            holder.number.setText(mQuestion.get(position).getNumber());
-
+            holder.question.setText(mQuestion.get(position).question);
+            holder.number.setText(Integer.toString(position + 1));
     }
 
     @Override
     public int getItemCount() {
-        return mQuestion.size();
+        return mQuestion != null ? mQuestion.size() : 0;
     }
 
     public class CustomViewHolder extends RecyclerView.ViewHolder{
