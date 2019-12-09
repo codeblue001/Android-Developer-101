@@ -13,8 +13,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="5dp"
-        android:textColor="#000"
         android:text="What are AndroidComponents?"
+        android:textColor="#000"
         android:textSize="23sp" />
 
     <androidx.cardview.widget.CardView
@@ -22,25 +22,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/main_question"
-        app:cardCornerRadius="8dp"
         android:layout_margin="10dp"
+        app:cardCornerRadius="8dp"
         app:cardElevation="22dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:background="#FFE4B5">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_marginLeft="20dp"
-                android:textColor="#000"
-                android:padding="10dp"
-                android:text="Activities"
-                android:textSize="23sp"/>
+            android:background="#FFE4B5"
+            android:orientation="vertical">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -48,28 +38,8 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginLeft="20dp"
                 android:padding="10dp"
+                android:text="Activities \n Services \n Content Providers \n Broadcast Receiver"
                 android:textColor="#000"
-                android:text="Services"
-                android:textSize="23sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_marginLeft="20dp"
-                android:textColor="#000"
-                android:padding="10dp"
-                android:text="ContentProviders"
-                android:textSize="23sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_marginLeft="20dp"
-                android:textColor="#000"
-                android:padding="10dp"
-                android:text="Broadcast Reciever"
                 android:textSize="23sp" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
@@ -79,96 +49,34 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/question_cardView"
-        android:textColor="#000"
         android:padding="5dp"
         android:text="Terminologies"
+        android:textColor="#000"
         android:textSize="23sp" />
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/terminologies_cardView"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/terminologies"
-        android:layout_margin="10dp"
-        app:cardCornerRadius="5dp"
-        app:cardElevation="22dp">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:background="#D3D3D3">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:textColor="#000"
-                android:padding="10dp"
-                android:background="#ADD8E6"
-                android:layout_marginBottom="8dp"
-                android:text="Activities\n Used by the program to interact with the user."
-                android:textSize="16sp"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:textColor="#000"
-                android:background="#ADD8E6"
-                android:padding="10dp"
-                android:text="Services\n A component which runs in the background\n without direct interaction with the user"
-                android:layout_marginBottom="8dp"
-                android:textSize="16sp" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:padding="10dp"
-                android:textColor="#000"
-                android:layout_marginBottom="5dp"
-                android:background="#ADD8E6"
-                android:text="Content Providers\n Can provide data to other applications or components."
-                android:textSize="16sp" />
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
+        android:layout_below="@+id/terminologies"/>
 
     <TextView
         android:id="@+id/assoc_question"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/terminologies_cardView"
+        android:layout_below="@+id/recyclerView2"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="17dp"
         android:padding="5dp"
-        android:textColor="#000"
         android:text="Associated Questions"
+        android:textColor="#000"
         android:textSize="23sp" />
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/assoc_question_cardView"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/assoc_question"
-        android:layout_margin="10dp"
-        app:cardCornerRadius="8dp"
-        app:cardElevation="22dp">
+        android:layout_below="@+id/assoc_question"/>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:textColor="#000"
-                android:padding="10dp"
-                android:background="	#FFB6C1"
-                android:textSize="16sp"
-
-                />
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
 
 </RelativeLayout>
