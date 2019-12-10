@@ -64,7 +64,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/recyclerView2"
         android:layout_alignParentStart="true"
-        android:layout_marginStart="17dp"
         android:padding="5dp"
         android:text="Associated Questions"
         android:textColor="#000"
@@ -74,7 +73,9 @@
         android:id="@+id/recyclerView3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/assoc_question"/>
+        android:layout_below="@+id/assoc_question"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="0dp" />
 
 
 </RelativeLayout>
