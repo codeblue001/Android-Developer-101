@@ -1,33 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout  xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#FFDAFF7F"
-    android:padding="8dp">
-    <LinearLayout android:id="@+id/Text"
-        android:orientation="vertical"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingLeft="10dip">
-        <TextView
-            android:id="@+id/Text1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="#FF7F3300"
-            android:textSize="20dip"
-            android:textStyle="italic"
-            />
-        <TextView
-            android:id="@+id/Text2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="14dip"
-            android:textColor="#FF267F00"
-            android:paddingLeft="100dip"
-            />
-    </LinearLayout>
-    <View
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:cardCornerRadius="8dp"
+    android:layout_margin="8dp"
+    android:background="#424242">
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#000"/>
-</RelativeLayout >
+        android:layout_height="wrap_content"
+        android:background="#EBEBEB">
+
+        <TextView
+            android:id="@+id/tv_category_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#FF9800"
+            android:textSize="25sp"
+            android:textStyle="italic"
+            tools:text="Basics"
+            android:padding="16dp"/>
+    </LinearLayout>
+
+
+</androidx.cardview.widget.CardView >
