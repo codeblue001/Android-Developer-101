@@ -93,14 +93,14 @@ public class SharedViewModel extends ViewModel {
                     @Override
                     public void onNext(ResultPojo questionPojos) {
                         quesAnsPairs.setValue(questionPojos.ques_ans_list);
-//                        for(QuestionPojo qp : questionPojos){
-//                            if(qp.terminologies != null){
-//                                Log.d(TAG, "onNext: question -> " + qp.question + " answer -> " + qp.answer + " add_on -> " + qp.terminologies.get(0).term + " " + qp.terminologies.get(0).meaning);
-//                            }
-//                            else{
-//                                Log.d(TAG, "onNext: question -> " + qp.question + " answer -> " + qp.answer);
-//                            }
-//                        }
+                        for(QuestionPojo qp : questionPojos.ques_ans_list){
+                            if(qp.terminologies != null){
+                                Log.d(TAG, "onNext: question -> " + qp.question + " answer -> " + qp.answer + " add_on -> " + qp.terminologies.get(0).term + " " + qp.terminologies.get(0).meaning);
+                            }
+                            else{
+                                Log.d(TAG, "onNext: question -> " + qp.question + " answer -> " + qp.answer);
+                            }
+                        }
                     }
 
                     @Override

@@ -25,14 +25,19 @@ public class CustomCategoryAdapter extends RecyclerView.Adapter<CustomCategoryAd
     @NonNull
     @Override
     public CustomCategoryAdapter.CustomCategoryViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_layout, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.category_item_layout, parent, false);
         return new CustomCategoryAdapter.CustomCategoryViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull CustomCategoryAdapter.CustomCategoryViewHolder holder, int position) {
-//        holder.question.setText(mQuestion.get(position).question);
-//        holder.number.setText(Integer.toString(position + 1));
+        holder.category.setText(mCategory.get(position).category);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
     }
 
     @Override
@@ -45,7 +50,7 @@ public class CustomCategoryAdapter extends RecyclerView.Adapter<CustomCategoryAd
 
         public CustomCategoryViewHolder(@NonNull View itemView) {
             super(itemView);
-            category = itemView.findViewById(R.id.question_textView);
+            category = itemView.findViewById(R.id.tv_category_name);
         }
     }
 }
