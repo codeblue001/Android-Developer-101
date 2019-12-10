@@ -69,7 +69,7 @@ public class SharedViewModel extends ViewModel {
                 });
     }
 
-    public void loadQuesAns(){
+    public void loadQuesAns(String category){
         Log.d(TAG, "loadQuesAns: ");
         Gson gson = new GsonBuilder()
                 .setLenient()
@@ -81,7 +81,7 @@ public class SharedViewModel extends ViewModel {
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
 
-        retrofit.create(ApiInterface.class).getQuestions()
+        retrofit.create(ApiInterface.class).getQuestions(category)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<ResultPojo>() {
