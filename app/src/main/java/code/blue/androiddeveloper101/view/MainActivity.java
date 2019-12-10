@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
         Log.d(TAG, "DEBUG: initRecyclerView()");
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
-        customAdapter = new CustomAdapter();
+        customAdapter = new CustomAdapter(this);
         recyclerView.setAdapter(customAdapter);
         sharedViewModel.getQuesAnsList().observe(this, new Observer<List<QuestionPojo>>(){
 
