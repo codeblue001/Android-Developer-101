@@ -56,7 +56,7 @@ public class CategoryFragment extends Fragment {
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 2);
         recyclerView.setLayoutManager(gridLayoutManager);
-        customAdapter = new CustomCategoryAdapter();
+        customAdapter = new CustomCategoryAdapter(getActivity());
         recyclerView.setAdapter(customAdapter);
         sharedViewModel.getCurrentDataCategory().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
