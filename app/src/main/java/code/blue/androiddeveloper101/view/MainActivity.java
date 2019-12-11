@@ -18,11 +18,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        sharedViewModel = ViewModelProviders.of(this).get(SharedViewModel.class);
-//        sharedViewModel.loadQuesAns("Basics");
-
         CategoryFragment categoryFragment = CategoryFragment.newInstance();
-
-        getSupportFragmentManager().beginTransaction().replace(R.id.container, categoryFragment).commit();
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.container, categoryFragment)
+                .addToBackStack(null)
+                .commit();
     }
 }

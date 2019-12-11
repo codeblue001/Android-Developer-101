@@ -23,12 +23,20 @@ public class SharedViewModel extends ViewModel {
     private static final String TAG = "SharedViewModel";
     private MutableLiveData<List<CategoriesPojo>> categoryList = new MutableLiveData<>();
     private MutableLiveData<List<QuestionPojo>> quesAnsPairs = new MutableLiveData<>();
+    private MutableLiveData<QuestionPojo> currentQuestion = new MutableLiveData<>();
+    private MutableLiveData<String> currentDataCategory = new MutableLiveData<>();
 
     public MutableLiveData<List<CategoriesPojo>> getCategoryList() {
         return categoryList;
     }
     public MutableLiveData<List<QuestionPojo>> getQuesAnsList(){
         return quesAnsPairs;
+    }
+    public MutableLiveData<QuestionPojo> getCurrentQuestion(){
+        return currentQuestion;
+    }
+    public MutableLiveData<String> getCurrentDataCategory(){
+        return currentDataCategory;
     }
 
     public void loadCategories(){
@@ -92,15 +100,9 @@ public class SharedViewModel extends ViewModel {
 
                     @Override
                     public void onNext(ResultPojo questionPojos) {
+//                        Log.d(TAG, "onNext: data_category -> " + questionPojos.data_category);
                         quesAnsPairs.setValue(questionPojos.ques_ans_list);
-                        for(QuestionPojo qp : questionPojos.ques_ans_list){
-                            if(qp.terminologies != null){
-                                Log.d(TAG, "onNext: question -> " + qp.question + " answer -> " + qp.answer + " add_on -> " + qp.terminologies.get(0).term + " " + qp.terminologies.get(0).meaning);
-                            }
-                            else{
-                                Log.d(TAG, "onNext: question -> " + qp.question + " answer -> " + qp.answer);
-                            }
-                        }
+                        currentDataCategory.setValue(questionPojos.data_category);
                     }
 
                     @Override
@@ -114,5 +116,9 @@ public class SharedViewModel extends ViewModel {
                     }
                 });
 
+    }
+
+    public void setCurrentQuestion(QuestionPojo question){
+        currentQuestion.setValue(question);
     }
 }
