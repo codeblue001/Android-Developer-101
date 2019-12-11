@@ -53,14 +53,6 @@ public class AnswerFragment extends Fragment {
     }
 
     private void initUI(){
-//        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
-//        rvTerminologies.setLayoutManager(new LinearLayoutManager(getActivity()));
-//        terminologyAdapter = new CustomAnswerAdapter(getActivity(), "terminology");
-//        rvTerminologies.setAdapter(terminologyAdapter);
-//
-//        rvRelatedQues.setLayoutManager(new LinearLayoutManager(getActivity()));
-//        relatedQuesAdapter = new CustomAnswerAdapter(getActivity(), "related questions");
-//        rvRelatedQues.setAdapter(relatedQuesAdapter);
 
         sharedViewModel.getCurrentQuestion().observe(getViewLifecycleOwner(), new Observer<QuestionPojo>(){
 
