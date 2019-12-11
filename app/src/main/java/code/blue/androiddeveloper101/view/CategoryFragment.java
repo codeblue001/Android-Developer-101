@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -45,8 +46,8 @@ public class CategoryFragment extends Fragment {
     }
 
     private void initRecyclerView(){
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
-        recyclerView.setLayoutManager(linearLayoutManager);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 2);
+        recyclerView.setLayoutManager(gridLayoutManager);
         customAdapter = new CustomCategoryAdapter();
         recyclerView.setAdapter(customAdapter);
         sharedViewModel.getCategoryList().observe(getViewLifecycleOwner(), new Observer<List<CategoriesPojo>>(){
