@@ -1,24 +1,18 @@
 package code.blue.androiddeveloper101.view;
 
-import android.content.Context;
 import android.os.Bundle;
-
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toolbar;
 
-import org.w3c.dom.Text;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
@@ -31,7 +25,6 @@ public class CategoryFragment extends Fragment {
     private SharedViewModel sharedViewModel;
     private RecyclerView recyclerView;
     private CustomCategoryAdapter customAdapter;
-    private TextView questionCategory;
     private Toolbar toolbar;
 
     public static CategoryFragment newInstance() {
@@ -46,8 +39,8 @@ public class CategoryFragment extends Fragment {
         initRecyclerView();
 
         //Toolbar
-        //Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.category_toolBar);
-        //toolbar.setTitle("Questions Categories");
+//        Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.category_toolBar);
+//        toolbar.setTitle("Questions Categories");
 
     }
 
@@ -59,19 +52,13 @@ public class CategoryFragment extends Fragment {
         return v;
     }
 
-    private void initRecyclerView(){
+    private void initRecyclerView() {
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 2);
         recyclerView.setLayoutManager(gridLayoutManager);
         customAdapter = new CustomCategoryAdapter(getActivity());
         recyclerView.setAdapter(customAdapter);
-        sharedViewModel.getCurrentDataCategory().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(String s) {
-                questionCategory.setText("Interview Questions: " + s);
-            }
-        });
-        sharedViewModel.getCategoryList().observe(getViewLifecycleOwner(), new Observer<List<CategoriesPojo>>(){
+        sharedViewModel.getCategoryList().observe(getViewLifecycleOwner(), new Observer<List<CategoriesPojo>>() {
             @Override
             public void onChanged(List<CategoriesPojo> categoriesPojos) {
                 customAdapter.setData(categoriesPojos);

@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -27,6 +28,8 @@ public class AnswerFragment extends Fragment {
     private TextView tvMainQuestion, tvMainAnswer, tvTermTitle, tvQuesTitle;
     private RecyclerView rvTerminologies, rvRelatedQues;
     private CustomAnswerAdapter terminologyAdapter, relatedQuesAdapter;
+    boolean visible = false;
+    ImageView favButtonSelected, favButton;
 
     public static AnswerFragment newInstance() {
         return new AnswerFragment();
@@ -48,7 +51,8 @@ public class AnswerFragment extends Fragment {
         rvRelatedQues = v.findViewById(R.id.rv_assoc_question);
         tvTermTitle = v.findViewById(R.id.terminologies);
         tvQuesTitle = v.findViewById(R.id.assoc_question);
-
+        favButton = v.findViewById(R.id.toolbar_fav_icon_sel);
+        favButtonSelected = v.findViewById(R.id.toolbar_fav_icon);
         return v;
     }
 
@@ -91,5 +95,14 @@ public class AnswerFragment extends Fragment {
                 }
             }
         });
+    }
+
+    public void onFavClick(View view) {
+//        favButton = fi
+        if(visible == false){
+            favButton.setVisibility(View.VISIBLE);
+            favButtonSelected.setVisibility(View.INVISIBLE);
+            visible = false;
+        }
     }
 }

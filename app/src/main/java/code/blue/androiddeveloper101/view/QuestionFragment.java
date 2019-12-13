@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -25,6 +26,7 @@ public class QuestionFragment extends Fragment {
     private SharedViewModel sharedViewModel;
     private RecyclerView rvQuestions;
     private CustomQuestionAdapter customAdapter;
+    private TextView questionCategory;
 
     public static QuestionFragment newInstance() {
         return new QuestionFragment();
@@ -41,6 +43,7 @@ public class QuestionFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.question_fragment, container, false);
         rvQuestions = v.findViewById(R.id.rv_question_list);
+        questionCategory = v.findViewById(R.id.tv_category_title);
 
         return v;
     }
@@ -55,6 +58,12 @@ public class QuestionFragment extends Fragment {
             public void onChanged(List<QuestionPojo> questionPojos) {
                 Log.d(TAG, "onChanged: questionPojos.size() -> " + questionPojos.size());
                 customAdapter.setData(questionPojos);
+            }
+        });
+        sharedViewModel.getCurrentDataCategory().observe(getViewLifecycleOwner(), new Observer<String>() {
+            @Override
+            public void onChanged(String s) {
+                questionCategory.setText("Interview Questions: " + s);
             }
         });
 

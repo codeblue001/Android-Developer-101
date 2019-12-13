@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.os.Bundle;
+import android.view.View;
 
 import code.blue.androiddeveloper101.R;
 import code.blue.androiddeveloper101.viewmodel.SharedViewModel;

@@ -3,29 +3,54 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content" >
+    android:layout_height="match_parent">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="8dp">
 
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/question_toolbar_container">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/category_toolBar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/colorPrimary"
+                app:layout_scrollFlags="scroll|enterAlways">
+
+                <include layout="@layout/answer_toolbar" />
+
+            </androidx.appcompat.widget.Toolbar>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
         <TextView
             android:id="@+id/main_question"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="8dp"
-            android:text="What are AndroidComponents?"
-            android:textStyle="bold"
+            android:text="What are Android Components?"
             android:textColor="#03A9F4"
-            android:textSize="20sp" />
+            android:layout_below="@+id/question_toolbar_container"
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
         <androidx.cardview.widget.CardView
             android:id="@+id/question_cardView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="8dp"
-            android:layout_below="@id/main_question">
+            android:layout_below="@id/main_question"
+            app:cardCornerRadius="8dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -39,9 +64,9 @@
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
                     android:padding="8dp"
-                    tools:text="Activities \nServices \nContent Providers \nBroadcast Receiver"
                     android:textColor="#000"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    tools:text="Activities \nServices \nContent Providers \nBroadcast Receiver" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
@@ -61,7 +86,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/terminologies"
             android:padding="8dp"
-            android:scrollbars="vertical"/>
+            android:scrollbars="vertical" />
 
         <TextView
             android:id="@+id/assoc_question"
@@ -79,9 +104,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/assoc_question"
             android:padding="8dp"
-            android:scrollbars="vertical"/>
+            android:scrollbars="vertical" />
     </RelativeLayout>
-
 
 
 </ScrollView>

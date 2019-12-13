@@ -49,7 +49,7 @@ public class SharedViewModel extends ViewModel {
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
-
+        Log.d(TAG, "loadCategories: ");
         retrofit.create(ApiInterface.class).getCategories()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

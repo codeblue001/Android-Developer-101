@@ -47,7 +47,19 @@
             android:layout_height="40dp"
             android:layout_centerInParent="true"
             android:background="?attr/selectableItemBackground"
-            android:src="@drawable/ic_favorite_black_24dp" />
+            android:src="@drawable/ic_favorite_border_black_24dp"
+            android:visibility="visible"/>
+
+        <ImageView
+            android:id="@+id/toolbar_fav_icon_sel"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerInParent="true"
+            android:background="?attr/selectableItemBackground"
+            android:clickable="true"
+            android:onClick="onFavClick"
+            android:src="@drawable/ic_favorite_border_black_24dp"
+            android:visibility="invisible" />
     </RelativeLayout>
 
 </LinearLayout>
