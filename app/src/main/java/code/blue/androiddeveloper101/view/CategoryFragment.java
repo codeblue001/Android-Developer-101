@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -15,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toolbar;
 
 import org.w3c.dom.Text;
 
@@ -30,6 +32,7 @@ public class CategoryFragment extends Fragment {
     private RecyclerView recyclerView;
     private CustomCategoryAdapter customAdapter;
     private TextView questionCategory;
+    private Toolbar toolbar;
 
     public static CategoryFragment newInstance() {
         return new CategoryFragment();
@@ -41,12 +44,16 @@ public class CategoryFragment extends Fragment {
         sharedViewModel = ViewModelProviders.of(this.getActivity()).get(SharedViewModel.class);
         sharedViewModel.loadCategories();
         initRecyclerView();
+
+        //Toolbar
+        //Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.category_toolBar);
+        //toolbar.setTitle("Questions Categories");
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.category_fragment, container, false);
-        questionCategory = v.findViewById(R.id.category_heading_text_view);
         recyclerView = v.findViewById(R.id.category_recycler_view);
 
         return v;
@@ -56,7 +63,7 @@ public class CategoryFragment extends Fragment {
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 2);
         recyclerView.setLayoutManager(gridLayoutManager);
-        customAdapter = new CustomCategoryAdapter();
+        customAdapter = new CustomCategoryAdapter(getActivity());
         recyclerView.setAdapter(customAdapter);
         sharedViewModel.getCurrentDataCategory().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
