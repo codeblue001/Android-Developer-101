@@ -6,6 +6,8 @@ import androidx.lifecycle.ViewModel;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import code.blue.androiddeveloper101.model.CategoriesPojo;
@@ -21,23 +23,26 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class SharedViewModel extends ViewModel {
     private static final String TAG = "SharedViewModel";
-    private MutableLiveData<List<CategoriesPojo>> categoryList = new MutableLiveData<>();
-    private MutableLiveData<List<QuestionPojo>> quesAnsPairs = new MutableLiveData<>();
-    private MutableLiveData<QuestionPojo> currentQuestion = new MutableLiveData<>();
-    private MutableLiveData<String> currentDataCategory = new MutableLiveData<>();
+    private MutableLiveData<List<String>> categoryList = new MutableLiveData<>();
+//    private MutableLiveData<List<CategoriesPojo>> categoryList = new MutableLiveData<>();
+    private MutableLiveData<List<List<QuestionPojo>>> questionList = new MutableLiveData<>();
+    private List<List<QuestionPojo>> tempQuestionList = new ArrayList<>();
+//    private MutableLiveData<QuestionPojo> currentQuestion = new MutableLiveData<>();
+//    private MutableLiveData<String> currentDataCategory = new MutableLiveData<>();
 
-    public MutableLiveData<List<CategoriesPojo>> getCategoryList() {
+    public MutableLiveData<List<String>> getCategoryList() {
         return categoryList;
     }
-    public MutableLiveData<List<QuestionPojo>> getQuesAnsList(){
-        return quesAnsPairs;
+    public MutableLiveData<List<List<QuestionPojo>>> getQuestionMap(){
+//        questionList.setValue(tempQuestionList);
+        return questionList;
     }
-    public MutableLiveData<QuestionPojo> getCurrentQuestion(){
-        return currentQuestion;
-    }
-    public MutableLiveData<String> getCurrentDataCategory(){
-        return currentDataCategory;
-    }
+//    public MutableLiveData<QuestionPojo> getCurrentQuestion(){
+//        return currentQuestion;
+//    }
+//    public MutableLiveData<String> getCurrentDataCategory(){
+//        return currentDataCategory;
+//    }
 
     public void loadCategories(){
         Gson gson = new GsonBuilder()
@@ -62,12 +67,17 @@ public class SharedViewModel extends ViewModel {
 
                     @Override
                     public void onNext(List<CategoriesPojo> categoriesPojos) {
-                        categoryList.setValue(categoriesPojos);
+                        List<String> categoryNames = new ArrayList<>();
+                        for(CategoriesPojo cp : categoriesPojos){
+                            categoryNames.add(cp.category);
+                            loadQuesAns(cp.category);
+                        }
+                        categoryList.setValue(categoryNames);
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        Log.d(TAG, "onError: " + e.getMessage());
+                        Log.d(TAG, "onError (loadCategories): " + e.getMessage());
                     }
 
                     @Override
@@ -77,8 +87,8 @@ public class SharedViewModel extends ViewModel {
                 });
     }
 
-    public void loadQuesAns(String category){
-        Log.d(TAG, "loadQuesAns: ");
+    public void loadQuesAns(final String category){
+//        Log.d(TAG, "loadQuesAns: category -> " + category);
         Gson gson = new GsonBuilder()
                 .setLenient()
                 .create();
@@ -101,13 +111,17 @@ public class SharedViewModel extends ViewModel {
                     @Override
                     public void onNext(ResultPojo questionPojos) {
 //                        Log.d(TAG, "onNext: data_category -> " + questionPojos.data_category);
-                        quesAnsPairs.setValue(questionPojos.ques_ans_list);
-                        currentDataCategory.setValue(questionPojos.data_category);
+//                        quesAnsPairs.setValue(questionPojos.ques_ans_list);
+//                        currentDataCategory.setValue(questionPojos.data_category);
+//                        Log.d(TAG, "onNext: " + category + ": questionPojos.size() -> " + questionPojos.ques_ans_list.size());
+                        tempQuestionList.add(questionPojos.ques_ans_list);
+                        questionList.setValue(tempQuestionList);
+//                        Log.d(TAG, "onNext: tempQuestionList.size() -> " + tempQuestionList.size());
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        Log.d(TAG, "onError: " + e.getMessage());
+                        Log.d(TAG, "onError (loadQuesAns): " + e.getMessage());
                     }
 
                     @Override
@@ -118,7 +132,7 @@ public class SharedViewModel extends ViewModel {
 
     }
 
-    public void setCurrentQuestion(QuestionPojo question){
-        currentQuestion.setValue(question);
-    }
+//    public void setCurrentQuestion(QuestionPojo question){
+//        currentQuestion.setValue(question);
+//    }
 }

@@ -25,13 +25,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardCornerRadius="8dp"
+            android:layout_margin="8dp"
             android:layout_below="@id/main_question">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#FFE4B5"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:padding="8dp">
 
                 <TextView
                     android:id="@+id/tv_main_answer"
@@ -40,7 +41,6 @@
                     android:layout_centerHorizontal="true"
                     android:padding="8dp"
                     tools:text="Activities \nServices \nContent Providers \nBroadcast Receiver"
-                    android:textColor="#000"
                     android:textSize="16sp" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
