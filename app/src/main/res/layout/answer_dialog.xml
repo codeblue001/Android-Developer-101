@@ -8,7 +8,16 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="8dp">
+        android:padding="8dp"
+        android:background="#424242">
+
+        <ImageView
+            android:id="@+id/iv_close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_close_black_24dp"
+            android:tint="@android:color/white"
+            android:layout_alignParentRight="true"/>
 
         <TextView
             android:id="@+id/main_question"
@@ -18,7 +27,8 @@
             android:text="What are AndroidComponents?"
             android:textStyle="bold"
             android:textColor="#03A9F4"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:layout_below="@id/iv_close"/>
 
         <androidx.cardview.widget.CardView
             android:id="@+id/question_cardView"

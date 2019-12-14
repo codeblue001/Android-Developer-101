@@ -20,7 +20,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import code.blue.androiddeveloper101.R;
-import code.blue.androiddeveloper101.model.CategoriesPojo;
 import code.blue.androiddeveloper101.model.QuestionPojo;
 import code.blue.androiddeveloper101.viewmodel.ExpandableRecyclerViewAdapter;
 import code.blue.androiddeveloper101.viewmodel.SharedViewModel;
@@ -29,8 +28,6 @@ public class CategoryQuestionFragment extends Fragment {
     private static final String TAG = "CategoryQuestionFragmen";
     private SharedViewModel sharedViewModel;
     private RecyclerView expanderRecyclerView;
-    private List<String> categoryList = new ArrayList<>();
-    private List<List<QuestionPojo>> questionList = new ArrayList<>();
     private ExpandableRecyclerViewAdapter expandableRecyclerViewAdapter;
 
     public static CategoryQuestionFragment newInstance() {
@@ -63,7 +60,7 @@ public class CategoryQuestionFragment extends Fragment {
             @Override
             public void onChanged(List<String> strings) {
 //                Log.d(TAG, "onChanged (getCategoryList) : " + strings.size());
-                categoryList = strings;
+                expandableRecyclerViewAdapter.setCategoryList(strings);
             }
         });
 
@@ -72,8 +69,7 @@ public class CategoryQuestionFragment extends Fragment {
             @Override
             public void onChanged(List<List<QuestionPojo>> lists) {
 //                Log.d(TAG, "onChanged (getQuestionMap) : " + lists.size());
-                questionList = lists;
-                setExpandableData();
+                expandableRecyclerViewAdapter.setQuestionList(lists);
 
             }
         });
@@ -81,7 +77,4 @@ public class CategoryQuestionFragment extends Fragment {
 
     }
 
-    private void setExpandableData(){
-        expandableRecyclerViewAdapter.setData(categoryList, questionList);
-    }
 }

@@ -4,11 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp">
+    android:layout_marginLeft="8dp"
+    android:layout_marginRight="8dp">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cv_question"
-        app:cardCornerRadius="8dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -16,7 +16,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:padding="8dp">
+            android:padding="5dp"
+            android:layout_marginBottom="5dp">
 
             <TextView
                 android:id="@+id/number_textView"
@@ -39,11 +40,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 tools:text="What is an Intent?"
-                android:textSize="20sp"
+                android:textSize="16sp"
                 android:padding="5dp"/>
 
         </LinearLayout>
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2px"
+            android:background="#22000000" />
     </androidx.cardview.widget.CardView>
+
 
 </RelativeLayout>

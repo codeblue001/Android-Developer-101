@@ -1,6 +1,8 @@
 package code.blue.androiddeveloper101.viewmodel;
 
 import android.content.Context;
+import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +12,9 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
@@ -22,16 +27,27 @@ public class ExpandableRecyclerViewAdapter extends RecyclerView.Adapter<Expandab
     List<String> categoryList;
     List<List<QuestionPojo>> questionList;
     Context context;
+    private InnerRecyclerViewAdapter itemInnerRecyclerView;
+    private Resources res;
+    private int[] myColors;
+    private int index;
 
     public ExpandableRecyclerViewAdapter(Context context){
         this.context = context;
+        res = context.getResources();
+        myColors = res.getIntArray(R.array.colors);
     }
 
-    public void setData(List<String> categoryList, List<List<QuestionPojo>> questionList){
+    public void setCategoryList(List<String> categoryList){
+        Log.d(TAG, "setCategoryList: categoryList.size() -> " + categoryList.size());
         this.categoryList = categoryList;
+        notifyDataSetChanged();
+    }
+
+    public void setQuestionList(List<List<QuestionPojo>> questionList){
+        Log.d(TAG, "setQuestionList: questionList.size() -> " + questionList.size());
         this.questionList = questionList;
         notifyDataSetChanged();
-//        Log.d(TAG, "setData: questionList.size() -> " + questionList.size());
     }
 
     @NonNull
@@ -43,10 +59,11 @@ public class ExpandableRecyclerViewAdapter extends RecyclerView.Adapter<Expandab
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
-//        Log.d(TAG, "onBindViewHolder: category index -> " + position);
+        index = position % 7;
+        Log.d(TAG, "onBindViewHolder: index -> " + index);
         holder.categoryName.setText(categoryList.get(position));
-
-//        itemInnerRecyclerView.setData(questionList.get(position));
+        holder.rvQuestions.setLayoutManager(new LinearLayoutManager(context));
+        holder.categoryIcon.setColorFilter(myColors[index]);
         holder.categoryCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -55,9 +72,9 @@ public class ExpandableRecyclerViewAdapter extends RecyclerView.Adapter<Expandab
                 }
                 else{
                     holder.rvQuestions.setVisibility(View.VISIBLE);
-                    InnerRecyclerViewAdapter itemInnerRecyclerView = new InnerRecyclerViewAdapter(questionList.get(position));
-                    itemInnerRecyclerView.setData(questionList.get(position));
+                    itemInnerRecyclerView = new InnerRecyclerViewAdapter(context);
                     holder.rvQuestions.setAdapter(itemInnerRecyclerView);
+                    itemInnerRecyclerView.setData(questionList.get(position));
                 }
             }
         });

@@ -24,17 +24,16 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class SharedViewModel extends ViewModel {
     private static final String TAG = "SharedViewModel";
     private MutableLiveData<List<String>> categoryList = new MutableLiveData<>();
-//    private MutableLiveData<List<CategoriesPojo>> categoryList = new MutableLiveData<>();
+    private List<String> tempCategoryList = new ArrayList<>();
     private MutableLiveData<List<List<QuestionPojo>>> questionList = new MutableLiveData<>();
     private List<List<QuestionPojo>> tempQuestionList = new ArrayList<>();
-//    private MutableLiveData<QuestionPojo> currentQuestion = new MutableLiveData<>();
-//    private MutableLiveData<String> currentDataCategory = new MutableLiveData<>();
 
     public MutableLiveData<List<String>> getCategoryList() {
+        categoryList.setValue(tempCategoryList);
         return categoryList;
     }
     public MutableLiveData<List<List<QuestionPojo>>> getQuestionMap(){
-//        questionList.setValue(tempQuestionList);
+        questionList.setValue(tempQuestionList);
         return questionList;
     }
 //    public MutableLiveData<QuestionPojo> getCurrentQuestion(){
@@ -67,12 +66,13 @@ public class SharedViewModel extends ViewModel {
 
                     @Override
                     public void onNext(List<CategoriesPojo> categoriesPojos) {
-                        List<String> categoryNames = new ArrayList<>();
+//                        List<String> categoryNames = new ArrayList<>();
                         for(CategoriesPojo cp : categoriesPojos){
-                            categoryNames.add(cp.category);
+//                            categoryNames.add(cp.category);
                             loadQuesAns(cp.category);
                         }
-                        categoryList.setValue(categoryNames);
+//                        categoryList.setValue(categoryNames);
+
                     }
 
                     @Override
@@ -87,7 +87,7 @@ public class SharedViewModel extends ViewModel {
                 });
     }
 
-    public void loadQuesAns(final String category){
+    public void loadQuesAns(String category){
 //        Log.d(TAG, "loadQuesAns: category -> " + category);
         Gson gson = new GsonBuilder()
                 .setLenient()
@@ -110,13 +110,10 @@ public class SharedViewModel extends ViewModel {
 
                     @Override
                     public void onNext(ResultPojo questionPojos) {
-//                        Log.d(TAG, "onNext: data_category -> " + questionPojos.data_category);
-//                        quesAnsPairs.setValue(questionPojos.ques_ans_list);
-//                        currentDataCategory.setValue(questionPojos.data_category);
-//                        Log.d(TAG, "onNext: " + category + ": questionPojos.size() -> " + questionPojos.ques_ans_list.size());
                         tempQuestionList.add(questionPojos.ques_ans_list);
+                        tempCategoryList.add(questionPojos.data_category);
+                        categoryList.setValue(tempCategoryList);
                         questionList.setValue(tempQuestionList);
-//                        Log.d(TAG, "onNext: tempQuestionList.size() -> " + tempQuestionList.size());
                     }
 
                     @Override
