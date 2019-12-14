@@ -2,11 +2,13 @@ package code.blue.androiddeveloper101.viewmodel;
 
 import android.content.Context;
 import android.text.Html;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -53,6 +55,7 @@ public class InnerRecyclerViewAdapter extends RecyclerView.Adapter<InnerRecycler
             public void onClick(View view) {
                 //open dialog fragment
                 final View mDialogView = LayoutInflater.from(context).inflate(R.layout.answer_dialog, null);
+
                 AlertDialog.Builder mBuilder = new AlertDialog.Builder(context)
                         .setView(mDialogView);
                 final AlertDialog mAlertDialog = mBuilder.show();
