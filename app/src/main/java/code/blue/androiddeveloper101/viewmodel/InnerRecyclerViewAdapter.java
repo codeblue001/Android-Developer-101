@@ -1,15 +1,18 @@
 package code.blue.androiddeveloper101.viewmodel;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.text.Html;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -53,7 +56,6 @@ public class InnerRecyclerViewAdapter extends RecyclerView.Adapter<InnerRecycler
         holder.cvQuestion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //open dialog fragment
                 final View mDialogView = LayoutInflater.from(context).inflate(R.layout.answer_dialog, null);
 
                 AlertDialog.Builder mBuilder = new AlertDialog.Builder(context)
@@ -69,15 +71,15 @@ public class InnerRecyclerViewAdapter extends RecyclerView.Adapter<InnerRecycler
                 TextView tvTermTitle = mDialogView.findViewById(R.id.terminologies);
                 TextView tvQuesTitle = mDialogView.findViewById(R.id.assoc_question);
                 ImageView ivClose = mDialogView.findViewById(R.id.iv_close);
+                ImageView ivFavorite = mDialogView.findViewById(R.id.iv_fav_icon);
 
                 tvMainQuestion.setText(tempQuestionPojo.question);
                 tvMainAnswer.setText(tempQuestionPojo.answer);
-                if(tempQuestionPojo.terminologies == null){
+                if (tempQuestionPojo.terminologies == null) {
                     Log.d(TAG, "onChanged: no terminology list found");
                     tvTermTitle.setVisibility(View.GONE);
                     rvTerminologies.setVisibility(View.GONE);
-                }
-                else{
+                } else {
                     Log.d(TAG, "onChanged: terminologies.size() ->" + tempQuestionPojo.terminologies.size());
                     tvTermTitle.setVisibility(View.VISIBLE);
                     rvTerminologies.setVisibility(View.VISIBLE);
@@ -87,12 +89,11 @@ public class InnerRecyclerViewAdapter extends RecyclerView.Adapter<InnerRecycler
                     terminologyAdapter.setData(tempQuestionPojo);
 
                 }
-                if(tempQuestionPojo.associated_questions == null){
+                if (tempQuestionPojo.associated_questions == null) {
                     Log.d(TAG, "onChanged: no associated questions found");
                     tvQuesTitle.setVisibility(View.GONE);
                     rvRelatedQues.setVisibility(View.GONE);
-                }
-                else{
+                } else {
                     Log.d(TAG, "onChanged: associated_questions.size() -> " + tempQuestionPojo.associated_questions.size());
                     tvQuesTitle.setVisibility(View.VISIBLE);
                     rvRelatedQues.setVisibility(View.VISIBLE);
@@ -108,6 +109,33 @@ public class InnerRecyclerViewAdapter extends RecyclerView.Adapter<InnerRecycler
                         mAlertDialog.dismiss();
                     }
                 });
+
+                ivFavorite.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        ImageView imageView = (ImageView) view;
+                        Drawable mDrawable;
+                        Toast mToast;
+                        if (imageView.getTag() != null) {
+                            String tag = (String) imageView.getTag();
+                            if (tag.equals("R.drawable.ic_favorite_border_pink_32dp")) {
+                                mDrawable = context.getDrawable(R.drawable.ic_favorite_pink_32dp);
+                                imageView.setImageDrawable(mDrawable);
+                                imageView.setTag("R.drawable.ic_favorite_pink_32dp");
+                                mToast = Toast.makeText(context, "Question added to favorite list.", Toast.LENGTH_SHORT);
+                                mToast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+                                mToast.show();
+                            } else if (tag.equals("R.drawable.ic_favorite_pink_32dp")) {
+                                mDrawable = context.getDrawable(R.drawable.ic_favorite_border_pink_32dp);
+                                imageView.setImageDrawable(mDrawable);
+                                imageView.setTag("R.drawable.ic_favorite_border_pink_32dp");
+                                mToast = Toast.makeText(context, "Question removed from favorite list.", Toast.LENGTH_SHORT);
+                                mToast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+                                mToast.show();
+                            }
+                        }
+                    }
+                });
             }
         });
     }
@@ -121,6 +149,7 @@ public class InnerRecyclerViewAdapter extends RecyclerView.Adapter<InnerRecycler
     public class ViewHolder extends RecyclerView.ViewHolder{
         TextView tvIndex, tvQuestion;
         CardView cvQuestion;
+
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
