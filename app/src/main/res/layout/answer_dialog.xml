@@ -3,13 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content" >
+    android:layout_height="match_parent">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="8dp"
-        android:background="#424242">
+        android:background="#424242"
+        android:focusable ="true"
+        android:focusableInTouchMode ="true">
 
         <ImageView
             android:id="@+id/iv_close"
@@ -17,7 +19,7 @@
             android:layout_height="wrap_content"
             android:src="@drawable/ic_close_black_32dp"
             android:tint="@android:color/white"
-            android:layout_alignParentRight="true"/>
+            android:layout_alignParentRight="true" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_ques_n_fav_holder"
@@ -50,7 +52,6 @@
                 app:layout_constraintWidth_percent="0.1"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-
         <androidx.cardview.widget.CardView
             android:id="@+id/question_cardView"
             android:layout_width="match_parent"
@@ -79,7 +80,7 @@
             android:id="@+id/terminologies"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/question_cardView"
+            android:layout_below="@id/question_cardView"
             android:padding="5dp"
             android:text="Terminologies"
             android:textColor="@android:color/white"
@@ -89,15 +90,15 @@
             android:id="@+id/rv_terminology"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/terminologies"
+            android:layout_below="@id/terminologies"
             android:padding="8dp"
-            android:scrollbars="vertical"/>
+            android:scrollbars="vertical" />
 
         <TextView
             android:id="@+id/assoc_question"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/rv_terminology"
+            android:layout_below="@id/rv_terminology"
             android:padding="5dp"
             android:text="Associated Questions"
             android:textColor="@android:color/white"
@@ -107,11 +108,9 @@
             android:id="@+id/rv_assoc_question"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/assoc_question"
-            android:padding="8dp"
-            android:scrollbars="vertical"/>
+            android:layout_below="@id/assoc_question"
+            android:padding="8dp" />
+
     </RelativeLayout>
-
-
 
 </ScrollView>

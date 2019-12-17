@@ -11,6 +11,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -63,12 +64,20 @@ public class InnerRecyclerViewAdapter extends RecyclerView.Adapter<InnerRecycler
         holder.cvQuestion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final View mDialogView = LayoutInflater.from(context).inflate(R.layout.answer_dialog, null);
+                DisplayMetrics displayMetrics =  context.getResources().getDisplayMetrics();
+                int displayHeight = displayMetrics.heightPixels;
+                WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
 
+                final View mDialogView = LayoutInflater.from(context).inflate(R.layout.answer_dialog, null);
                 AlertDialog.Builder mBuilder = new AlertDialog.Builder(context)
                         .setView(mDialogView);
                 final AlertDialog mAlertDialog = mBuilder.show();
                 mAlertDialog.setCanceledOnTouchOutside(true);
+
+                layoutParams.copyFrom(mAlertDialog.getWindow().getAttributes());
+                int dialogWindowHeight = (int) (displayHeight * 0.8f);
+                layoutParams.height = dialogWindowHeight;
+                mAlertDialog.getWindow().setAttributes(layoutParams);
 
                 CustomAnswerAdapter terminologyAdapter, relatedQuesAdapter;
                 TextView tvMainQuestion = mDialogView.findViewById(R.id.main_question);
@@ -195,6 +204,11 @@ public class InnerRecyclerViewAdapter extends RecyclerView.Adapter<InnerRecycler
             protected Void doInBackground(FavQuestion... favQuestions) {
                 appDb.favQuestionDao().deleteFavQuestion(favQuestion);
                 return null;
+            }
+
+            @Override
+            protected void onPostExecute(Void voids){
+                super.onPostExecute(voids);
             }
         }.execute(favQuestion);
     }

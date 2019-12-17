@@ -3,6 +3,7 @@ package code.blue.androiddeveloper101.viewmodel;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -39,13 +40,13 @@ public class ExpandableRecyclerViewAdapter extends RecyclerView.Adapter<Expandab
     }
 
     public void setCategoryList(List<String> categoryList){
-        Log.d(TAG, "setCategoryList: categoryList.size() -> " + categoryList.size());
+//        Log.d(TAG, "setCategoryList: categoryList.size() -> " + categoryList.size());
         this.categoryList = categoryList;
         notifyDataSetChanged();
     }
 
     public void setQuestionList(List<List<QuestionPojo>> questionList){
-        Log.d(TAG, "setQuestionList: questionList.size() -> " + questionList.size());
+//        Log.d(TAG, "setQuestionList: questionList.size() -> " + questionList.size());
         this.questionList = questionList;
         notifyDataSetChanged();
     }
@@ -60,7 +61,7 @@ public class ExpandableRecyclerViewAdapter extends RecyclerView.Adapter<Expandab
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
         index = position % 7;
-        Log.d(TAG, "onBindViewHolder: index -> " + index);
+//        Log.d(TAG, "onBindViewHolder: index -> " + index);
         holder.categoryName.setText(categoryList.get(position));
         holder.rvQuestions.setLayoutManager(new LinearLayoutManager(context));
         holder.categoryIcon.setColorFilter(myColors[index]);
@@ -85,6 +86,7 @@ public class ExpandableRecyclerViewAdapter extends RecyclerView.Adapter<Expandab
     public int getItemCount() {
         return categoryList != null ? categoryList.size() : 0;
     }
+
 
     public class ViewHolder extends RecyclerView.ViewHolder{
         ImageView categoryIcon;
