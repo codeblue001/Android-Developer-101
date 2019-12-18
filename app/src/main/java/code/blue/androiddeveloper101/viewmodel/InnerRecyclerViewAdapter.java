@@ -37,6 +37,9 @@ public class InnerRecyclerViewAdapter extends RecyclerView.Adapter<InnerRecycler
     private Context context;
     private FavQuestionDatabase appDb;
     private FavQuestion favQuestion;
+    private int rowNum;
+    private Drawable mDrawable;
+    private Toast mToast;
 
     public InnerRecyclerViewAdapter(Context context){
         this.context = context;
@@ -64,6 +67,7 @@ public class InnerRecyclerViewAdapter extends RecyclerView.Adapter<InnerRecycler
         holder.cvQuestion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                hasExistance(tempQuestionPojo.question);
                 DisplayMetrics displayMetrics =  context.getResources().getDisplayMetrics();
                 int displayHeight = displayMetrics.heightPixels;
                 WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
@@ -103,7 +107,6 @@ public class InnerRecyclerViewAdapter extends RecyclerView.Adapter<InnerRecycler
                     terminologyAdapter = new CustomAnswerAdapter(context, "terminology");
                     rvTerminologies.setAdapter(terminologyAdapter);
                     terminologyAdapter.setData(tempQuestionPojo);
-
                 }
                 if (tempQuestionPojo.associated_questions == null) {
                     Log.d(TAG, "onChanged: no associated questions found");
@@ -119,6 +122,12 @@ public class InnerRecyclerViewAdapter extends RecyclerView.Adapter<InnerRecycler
                     relatedQuesAdapter.setData(tempQuestionPojo);
                 }
 
+                if(rowNum > 0){
+                    mDrawable = context.getDrawable(R.drawable.ic_favorite_pink_32dp);
+                    ivFavorite.setImageDrawable(mDrawable);
+                    ivFavorite.setTag("R.drawable.ic_favorite_pink_32dp");
+                }
+
                 ivClose.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -132,8 +141,7 @@ public class InnerRecyclerViewAdapter extends RecyclerView.Adapter<InnerRecycler
                         favQuestion = new FavQuestion(0, tempQuestionPojo.question, tempQuestionPojo.answer,
                                 tempQuestionPojo.terminologies, tempQuestionPojo.associated_questions);
                         ImageView imageView = (ImageView) view;
-                        Drawable mDrawable;
-                        Toast mToast;
+
                         if (imageView.getTag() != null) {
                             String tag = (String) imageView.getTag();
                             if (tag.equals("R.drawable.ic_favorite_border_pink_32dp")) {
@@ -145,7 +153,7 @@ public class InnerRecyclerViewAdapter extends RecyclerView.Adapter<InnerRecycler
                                 mToast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
                                 mToast.show();
                             } else if (tag.equals("R.drawable.ic_favorite_pink_32dp")) {
-                                deleteFavQuestion(favQuestion);
+                                deleteFavQuestion(tempQuestionPojo.question);
                                 mDrawable = context.getDrawable(R.drawable.ic_favorite_border_pink_32dp);
                                 imageView.setImageDrawable(mDrawable);
                                 imageView.setTag("R.drawable.ic_favorite_border_pink_32dp");
@@ -197,19 +205,32 @@ public class InnerRecyclerViewAdapter extends RecyclerView.Adapter<InnerRecycler
     }
 
     @SuppressLint("StaticFieldLeak")
-    private void deleteFavQuestion(final FavQuestion favQuestion){
-        new AsyncTask<FavQuestion, Void, Void>(){
+    private void deleteFavQuestion(final String question){
+        new AsyncTask<String, Void, Void>(){
 
             @Override
-            protected Void doInBackground(FavQuestion... favQuestions) {
-                appDb.favQuestionDao().deleteFavQuestion(favQuestion);
+            protected Void doInBackground(String... strings) {
+                appDb.favQuestionDao().deleteFavQuestion(question);
                 return null;
             }
 
+        }.execute(question);
+    }
+
+    @SuppressLint("StaticFieldLeak")
+    private void hasExistance(final String question){
+        new AsyncTask<String, Void, Integer>(){
+
             @Override
-            protected void onPostExecute(Void voids){
-                super.onPostExecute(voids);
+            protected Integer doInBackground(String... strings) {
+                setMatchCount(appDb.favQuestionDao().checkExistance(question));
+                return appDb.favQuestionDao().checkExistance(question);
             }
-        }.execute(favQuestion);
+
+        }.execute(question);
+    }
+
+    private void setMatchCount(int num){
+        rowNum = num;
     }
 }

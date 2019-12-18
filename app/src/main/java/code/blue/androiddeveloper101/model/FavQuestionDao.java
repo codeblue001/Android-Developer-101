@@ -21,6 +21,9 @@ public interface FavQuestionDao {
     @Update
     void updateFavQuestion(FavQuestion favQuestion);
 
-    @Delete
-    void deleteFavQuestion(FavQuestion favQuestion);
+    @Query("DELETE from FavQuestion WHERE question LIKE :question")
+    void deleteFavQuestion(String question);
+
+    @Query("Select COUNT(*) from FavQuestion WHERE question LIKE :question")
+    int checkExistance(String question);
 }
