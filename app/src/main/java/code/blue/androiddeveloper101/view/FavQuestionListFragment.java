@@ -7,11 +7,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -20,10 +19,7 @@ import java.util.List;
 import code.blue.androiddeveloper101.R;
 import code.blue.androiddeveloper101.model.FavQuestionDatabase;
 import code.blue.androiddeveloper101.model.QuestionPojo;
-import code.blue.androiddeveloper101.viewmodel.CustomAnswerAdapter;
-import code.blue.androiddeveloper101.viewmodel.ExpandableRecyclerViewAdapter;
 import code.blue.androiddeveloper101.viewmodel.QuestionListAdapter;
-import code.blue.androiddeveloper101.viewmodel.SharedViewModel;
 
 public class FavQuestionListFragment extends Fragment {
     private static final String TAG = "FavQuestionListFragment";
@@ -39,6 +35,7 @@ public class FavQuestionListFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
         appDb = FavQuestionDatabase.getInstance(getActivity());
         initList();
     }

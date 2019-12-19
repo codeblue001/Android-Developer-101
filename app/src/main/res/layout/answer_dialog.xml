@@ -33,7 +33,6 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 tools:text="What are AndroidComponents?"
-                android:textStyle="bold"
                 android:textColor="#03A9F4"
                 android:textSize="20sp"
                 android:paddingLeft="8dp"

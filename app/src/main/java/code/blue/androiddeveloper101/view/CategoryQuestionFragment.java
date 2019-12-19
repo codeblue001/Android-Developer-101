@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -42,6 +43,7 @@ public class CategoryQuestionFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
         setRetainInstance(true);
     }
 
@@ -60,8 +62,9 @@ public class CategoryQuestionFragment extends Fragment {
     }
 
     private void initExpandableView(){
-        expandableRecyclerViewAdapter = new ExpandableRecyclerViewAdapter(getActivity());
         mLayoutManager = new LinearLayoutManager(getActivity());
+        expandableRecyclerViewAdapter = new ExpandableRecyclerViewAdapter(getActivity(), mLayoutManager);
+
         expanderRecyclerView.setLayoutManager(mLayoutManager);
         expanderRecyclerView.setAdapter(expandableRecyclerViewAdapter);
 

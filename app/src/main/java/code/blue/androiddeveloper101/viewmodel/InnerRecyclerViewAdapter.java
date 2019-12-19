@@ -93,7 +93,7 @@ public class InnerRecyclerViewAdapter extends RecyclerView.Adapter<InnerRecycler
                 ImageView ivClose = mDialogView.findViewById(R.id.iv_close);
                 ImageView ivFavorite = mDialogView.findViewById(R.id.iv_fav_icon);
 
-                tvMainQuestion.setText(tempQuestionPojo.question);
+                tvMainQuestion.setText(Html.fromHtml(tempQuestionPojo.question));
                 tvMainAnswer.setText(tempQuestionPojo.answer);
                 if (tempQuestionPojo.terminologies == null) {
                     Log.d(TAG, "onChanged: no terminology list found");

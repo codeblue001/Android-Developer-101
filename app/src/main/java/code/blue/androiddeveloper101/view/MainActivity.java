@@ -10,6 +10,8 @@ import android.view.MenuItem;
 import android.view.View;
 
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProviders;
 
 import code.blue.androiddeveloper101.R;
@@ -27,15 +29,23 @@ public class MainActivity extends AppCompatActivity {
         Log.d(TAG, "DEBUG: onCreate: savedInstanceState -> " + (savedInstanceState == null));
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        appDb = FavQuestionDatabase.getInstance(this);
+        toolbar = findViewById(R.id.toolbar);
 
         if(savedInstanceState == null){
             sharedViewModel = ViewModelProviders.of(this).get(SharedViewModel.class);
             sharedViewModel.loadCategories();
+            SplashFragment splashFragment = SplashFragment.newInstance();
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.container, splashFragment)
+                    .commit();
         }
-        appDb = FavQuestionDatabase.getInstance(this);
+        else{
+            Log.d(TAG, "onCreate: after configuration change");
+            setSupportActionBar(toolbar);
+        }
 
-        toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
         toolbar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -43,7 +53,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        goToHomeScreen();
+//        setSupportActionBar(toolbar);
+//        goToHomeScreen();
     }
 
     @Override
@@ -61,19 +72,21 @@ public class MainActivity extends AppCompatActivity {
                 FavQuestionListFragment favQuestionListFragment = FavQuestionListFragment.newInstance();
                 getSupportFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.container, favQuestionListFragment)
+                        .replace(R.id.container, favQuestionListFragment, "favQuestionListFragment")
                         .commit();
                 break;
         }
         return super.onOptionsItemSelected(item);
     }
 
-    private void goToHomeScreen(){
+    public void goToHomeScreen(){
         Log.d(TAG, "DEBUG: goToHomeScreen: ");
+
         CategoryQuestionFragment categoryQuestionFragment = CategoryQuestionFragment.newInstance();
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.container, categoryQuestionFragment)
                 .commit();
+        setSupportActionBar(toolbar);
     }
 }
