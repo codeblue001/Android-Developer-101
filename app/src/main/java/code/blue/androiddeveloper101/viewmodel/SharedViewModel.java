@@ -36,14 +36,9 @@ public class SharedViewModel extends ViewModel {
         questionList.setValue(tempQuestionList);
         return questionList;
     }
-//    public MutableLiveData<QuestionPojo> getCurrentQuestion(){
-//        return currentQuestion;
-//    }
-//    public MutableLiveData<String> getCurrentDataCategory(){
-//        return currentDataCategory;
-//    }
 
     public void loadCategories(){
+        Log.d(TAG, "DEBUG: loadCategories: ");
         Gson gson = new GsonBuilder()
                 .setLenient()
                 .create();
@@ -66,13 +61,11 @@ public class SharedViewModel extends ViewModel {
 
                     @Override
                     public void onNext(List<CategoriesPojo> categoriesPojos) {
-//                        List<String> categoryNames = new ArrayList<>();
+                        tempCategoryList = new ArrayList<>();
+                        tempQuestionList = new ArrayList<>();
                         for(CategoriesPojo cp : categoriesPojos){
-//                            categoryNames.add(cp.category);
                             loadQuesAns(cp.category);
                         }
-//                        categoryList.setValue(categoryNames);
-
                     }
 
                     @Override
@@ -128,8 +121,4 @@ public class SharedViewModel extends ViewModel {
                 });
 
     }
-
-//    public void setCurrentQuestion(QuestionPojo question){
-//        currentQuestion.setValue(question);
-//    }
 }

@@ -3,32 +3,53 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content" >
+    android:layout_height="match_parent">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="8dp"
-        android:background="#424242">
+
+        android:focusable ="true"
+        android:focusableInTouchMode ="true">
 
         <ImageView
             android:id="@+id/iv_close"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_close_black_24dp"
+            android:src="@drawable/ic_close_black_32dp"
             android:tint="@android:color/white"
-            android:layout_alignParentRight="true"/>
+            android:layout_alignParentRight="true" />
 
-        <TextView
-            android:id="@+id/main_question"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_ques_n_fav_holder"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="8dp"
-            android:text="What are AndroidComponents?"
-            android:textStyle="bold"
-            android:textColor="#03A9F4"
-            android:textSize="20sp"
-            android:layout_below="@id/iv_close"/>
+            android:layout_below="@id/iv_close"
+            android:paddingTop="8dp">
+
+            <TextView
+                android:id="@+id/main_question"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                tools:text="What are AndroidComponents?"
+                android:textColor="#03A9F4"
+                android:textSize="20sp"
+                android:paddingLeft="8dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintWidth_percent="0.9"/>
+
+            <ImageView
+                android:id="@+id/iv_fav_icon"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_favorite_border_pink_32dp"
+                android:tag="R.drawable.ic_favorite_border_pink_32dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintWidth_percent="0.1"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.cardview.widget.CardView
             android:id="@+id/question_cardView"
@@ -36,13 +57,12 @@
             android:layout_height="wrap_content"
             app:cardCornerRadius="8dp"
             android:layout_margin="8dp"
-            android:layout_below="@id/main_question">
+            android:layout_below="@id/cl_ques_n_fav_holder">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="8dp">
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/tv_main_answer"
@@ -59,7 +79,7 @@
             android:id="@+id/terminologies"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/question_cardView"
+            android:layout_below="@id/question_cardView"
             android:padding="5dp"
             android:text="Terminologies"
             android:textColor="@android:color/white"
@@ -69,15 +89,15 @@
             android:id="@+id/rv_terminology"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/terminologies"
+            android:layout_below="@id/terminologies"
             android:padding="8dp"
-            android:scrollbars="vertical"/>
+            android:scrollbars="vertical" />
 
         <TextView
             android:id="@+id/assoc_question"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/rv_terminology"
+            android:layout_below="@id/rv_terminology"
             android:padding="5dp"
             android:text="Associated Questions"
             android:textColor="@android:color/white"
@@ -87,11 +107,9 @@
             android:id="@+id/rv_assoc_question"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/assoc_question"
-            android:padding="8dp"
-            android:scrollbars="vertical"/>
+            android:layout_below="@id/assoc_question"
+            android:padding="8dp" />
+
     </RelativeLayout>
-
-
 
 </ScrollView>
