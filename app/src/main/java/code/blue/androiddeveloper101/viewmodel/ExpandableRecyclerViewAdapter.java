@@ -67,7 +67,7 @@ public class ExpandableRecyclerViewAdapter extends RecyclerView.Adapter<Expandab
 
     private void changeStateOfItem(int position){
         List<Boolean> tempCondList = new ArrayList<>();
-        Log.d(TAG, "changeStateOfItem: position -> " + position);
+//        Log.d(TAG, "changeStateOfItem: position -> " + position);
         for(int i = 0; i < categoryList.size(); i++){
             if(i == position){
                 tempCondList.add(true);
@@ -94,7 +94,7 @@ public class ExpandableRecyclerViewAdapter extends RecyclerView.Adapter<Expandab
         holder.categoryName.setText(categoryList.get(position));
         holder.rvQuestions.setLayoutManager(new LinearLayoutManager(context));
         holder.categoryIcon.setColorFilter(myColors[index]);
-        Log.d(TAG, "onBindViewHolder: expandCondition.get(position) -> " + expandCondition.get(position));
+//        Log.d(TAG, "onBindViewHolder: expandCondition.get(position) -> " + expandCondition.get(position));
         if(!expandCondition.get(position)){
             holder.rvQuestions.setVisibility(View.GONE);
         }
@@ -113,7 +113,7 @@ public class ExpandableRecyclerViewAdapter extends RecyclerView.Adapter<Expandab
         holder.categoryCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d(TAG, "onClick: position selected -> " + position);
+//                Log.d(TAG, "onClick: position selected -> " + position);
                 if(holder.rvQuestions.isShown()){
                     holder.rvQuestions.setVisibility(View.GONE);
                 }

@@ -40,6 +40,8 @@ public class InnerRecyclerViewAdapter extends RecyclerView.Adapter<InnerRecycler
     private int rowNum;
     private Drawable mDrawable;
     private Toast mToast;
+    private View mDialogView;
+    private AlertDialog mAlertDialog;
 
     public InnerRecyclerViewAdapter(Context context){
         this.context = context;
@@ -68,20 +70,8 @@ public class InnerRecyclerViewAdapter extends RecyclerView.Adapter<InnerRecycler
             @Override
             public void onClick(View view) {
                 hasExistance(tempQuestionPojo.question);
-                DisplayMetrics displayMetrics =  context.getResources().getDisplayMetrics();
-                int displayHeight = displayMetrics.heightPixels;
-                WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
 
-                final View mDialogView = LayoutInflater.from(context).inflate(R.layout.answer_dialog, null);
-                AlertDialog.Builder mBuilder = new AlertDialog.Builder(context)
-                        .setView(mDialogView);
-                final AlertDialog mAlertDialog = mBuilder.show();
-                mAlertDialog.setCanceledOnTouchOutside(true);
-
-                layoutParams.copyFrom(mAlertDialog.getWindow().getAttributes());
-                int dialogWindowHeight = (int) (displayHeight * 0.8f);
-                layoutParams.height = dialogWindowHeight;
-                mAlertDialog.getWindow().setAttributes(layoutParams);
+                prepareAnswerDialog();
 
                 CustomAnswerAdapter terminologyAdapter, relatedQuesAdapter;
                 TextView tvMainQuestion = mDialogView.findViewById(R.id.main_question);
@@ -232,5 +222,23 @@ public class InnerRecyclerViewAdapter extends RecyclerView.Adapter<InnerRecycler
 
     private void setMatchCount(int num){
         rowNum = num;
+    }
+
+    private void prepareAnswerDialog(){
+        DisplayMetrics displayMetrics =  context.getResources().getDisplayMetrics();
+        int displayHeight = displayMetrics.heightPixels;
+        WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
+
+        mDialogView = LayoutInflater.from(context).inflate(R.layout.answer_dialog, null);
+        AlertDialog.Builder mBuilder = new AlertDialog.Builder(context)
+                .setView(mDialogView);
+        mAlertDialog = mBuilder.show();
+        mAlertDialog.setCanceledOnTouchOutside(true);
+
+        layoutParams.copyFrom(mAlertDialog.getWindow().getAttributes());
+        int dialogWindowHeight = (int) (displayHeight * 0.8f);
+        layoutParams.height = dialogWindowHeight;
+        mAlertDialog.getWindow().setAttributes(layoutParams);
+        mAlertDialog.getWindow().setBackgroundDrawableResource(R.drawable.dialog_background);
     }
 }

@@ -61,15 +61,11 @@ public class SharedViewModel extends ViewModel {
 
                     @Override
                     public void onNext(List<CategoriesPojo> categoriesPojos) {
-//                        List<String> categoryNames = new ArrayList<>();
                         tempCategoryList = new ArrayList<>();
                         tempQuestionList = new ArrayList<>();
                         for(CategoriesPojo cp : categoriesPojos){
-//                            categoryNames.add(cp.category);
                             loadQuesAns(cp.category);
                         }
-//                        categoryList.setValue(categoryNames);
-
                     }
 
                     @Override
@@ -125,8 +121,4 @@ public class SharedViewModel extends ViewModel {
                 });
 
     }
-
-//    public void setCurrentQuestion(QuestionPojo question){
-//        currentQuestion.setValue(question);
-//    }
 }

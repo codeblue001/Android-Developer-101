@@ -89,6 +89,4 @@ public class CategoryQuestionFragment extends Fragment {
 
     }
 
-
-
 }

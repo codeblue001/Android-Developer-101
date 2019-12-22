@@ -3,13 +3,16 @@ package code.blue.androiddeveloper101.view;
 import android.annotation.SuppressLint;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.Button;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -26,7 +29,7 @@ public class FavQuestionListFragment extends Fragment {
     private FavQuestionDatabase appDb;
     private RecyclerView savedQuesRecyclerView;
     private QuestionListAdapter questionListAdapter;
-
+    Button btnEdit, btnDone;
 
     public static FavQuestionListFragment newInstance() {
         return new FavQuestionListFragment();
@@ -44,6 +47,26 @@ public class FavQuestionListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.category_question_fragment, container, false);
         savedQuesRecyclerView = v.findViewById(R.id.rv_category_question);
+        btnEdit = v.findViewById(R.id.btn_edit);
+        btnDone = v.findViewById(R.id.btn_done);
+        btnEdit.setVisibility(View.VISIBLE);
+
+        btnEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                questionListAdapter.initDeleteList();
+                questionListAdapter.presentDeleteBtn();
+                btnDone.setVisibility(View.VISIBLE);
+            }
+        });
+
+        btnDone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                questionListAdapter.editFinished();
+                btnDone.setVisibility(View.GONE);
+            }
+        });
 
         return v;
     }
@@ -66,7 +89,6 @@ public class FavQuestionListFragment extends Fragment {
 
             @Override
             protected void onPostExecute(List<QuestionPojo> questionList){
-//                super.onPostExecute(voids);
                 questionListAdapter.setSavedQuestions(questionList);
             }
         }.execute();

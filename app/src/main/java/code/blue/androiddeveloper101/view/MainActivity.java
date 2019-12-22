@@ -53,8 +53,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-//        setSupportActionBar(toolbar);
-//        goToHomeScreen();
     }
 
     @Override
