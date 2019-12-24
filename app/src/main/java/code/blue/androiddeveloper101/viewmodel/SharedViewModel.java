@@ -27,6 +27,8 @@ public class SharedViewModel extends ViewModel {
     private List<String> tempCategoryList = new ArrayList<>();
     private MutableLiveData<List<List<QuestionPojo>>> questionList = new MutableLiveData<>();
     private List<List<QuestionPojo>> tempQuestionList = new ArrayList<>();
+    private List<QuestionPojo> tempAllQuestions = new ArrayList<>();
+    private MutableLiveData<List<QuestionPojo>> allQuestionList = new MutableLiveData<>();
 
     public MutableLiveData<List<String>> getCategoryList() {
         categoryList.setValue(tempCategoryList);
@@ -35,6 +37,10 @@ public class SharedViewModel extends ViewModel {
     public MutableLiveData<List<List<QuestionPojo>>> getQuestionMap(){
         questionList.setValue(tempQuestionList);
         return questionList;
+    }
+    public MutableLiveData<List<QuestionPojo>> getAllQuestions(){
+        allQuestionList.setValue(tempAllQuestions);
+        return allQuestionList;
     }
 
     public void loadCategories(){
@@ -63,6 +69,8 @@ public class SharedViewModel extends ViewModel {
                     public void onNext(List<CategoriesPojo> categoriesPojos) {
                         tempCategoryList = new ArrayList<>();
                         tempQuestionList = new ArrayList<>();
+                        tempAllQuestions = new ArrayList<>();
+
                         for(CategoriesPojo cp : categoriesPojos){
                             loadQuesAns(cp.category);
                         }
@@ -105,8 +113,14 @@ public class SharedViewModel extends ViewModel {
                     public void onNext(ResultPojo questionPojos) {
                         tempQuestionList.add(questionPojos.ques_ans_list);
                         tempCategoryList.add(questionPojos.data_category);
+
+                        for(QuestionPojo qp : questionPojos.ques_ans_list){
+                            tempAllQuestions.add(qp);
+                        }
+
                         categoryList.setValue(tempCategoryList);
                         questionList.setValue(tempQuestionList);
+                        allQuestionList.setValue(tempAllQuestions);
                     }
 
                     @Override

@@ -23,7 +23,6 @@
         android:layout_below="@+id/rotate"
         android:textSize="23sp"
         android:textStyle="bold"
-        android:textColor="#fff"
-        />
+        android:textColor="#fff" />
 
 </RelativeLayout>
