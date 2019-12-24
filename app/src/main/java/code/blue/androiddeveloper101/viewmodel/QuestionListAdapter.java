@@ -34,7 +34,6 @@ import code.blue.androiddeveloper101.model.QuestionPojo;
 public class QuestionListAdapter extends RecyclerView.Adapter<QuestionListAdapter.ViewHolder> {
     private static final String TAG = "QuestionListAdapter";
     private FavQuestionDatabase appDb;
-//    private FavQuestion favQuestion;
     private View mDialogView;
     private AlertDialog mAlertDialog;
     private boolean editPressed;
@@ -108,10 +107,9 @@ public class QuestionListAdapter extends RecyclerView.Adapter<QuestionListAdapte
             holder.ivDelete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
                     alertDialogBuilder = new AlertDialog.Builder(context);
                     alertDialogBuilder
-                            .setMessage("Deleting question:\n\n" + questionList.get(position).question)
+                            .setMessage(Html.fromHtml("Deleting question:<br><br>" + questionList.get(position).question))
                             .setCancelable(false)
                             .setPositiveButton("Delete", new DialogInterface.OnClickListener(){
                                 public void onClick(DialogInterface dialog, int id){
@@ -224,16 +222,6 @@ public class QuestionListAdapter extends RecyclerView.Adapter<QuestionListAdapte
     }
 
     private void prepareAnswerDialog(){
-        tvMainQuestion = mDialogView.findViewById(R.id.main_question);
-        tvMainAnswer = mDialogView.findViewById(R.id.tv_main_answer);
-        rvTerminologies = mDialogView.findViewById(R.id.rv_terminology);
-        rvRelatedQues = mDialogView.findViewById(R.id.rv_assoc_question);
-        tvTermTitle = mDialogView.findViewById(R.id.terminologies);
-        tvQuesTitle = mDialogView.findViewById(R.id.assoc_question);
-        ivClose = mDialogView.findViewById(R.id.iv_close);
-        ivFavorite = mDialogView.findViewById(R.id.iv_fav_icon);
-        ivFavorite.setVisibility(View.GONE);
-
         displayMetrics = context.getResources().getDisplayMetrics();
         displayHeight = displayMetrics.heightPixels;
         layoutParams = new WindowManager.LayoutParams();
@@ -249,6 +237,16 @@ public class QuestionListAdapter extends RecyclerView.Adapter<QuestionListAdapte
         layoutParams.height = dialogWindowHeight;
         mAlertDialog.getWindow().setAttributes(layoutParams);
         mAlertDialog.getWindow().setBackgroundDrawableResource(R.drawable.dialog_background);
+
+        tvMainQuestion = mDialogView.findViewById(R.id.main_question);
+        tvMainAnswer = mDialogView.findViewById(R.id.tv_main_answer);
+        rvTerminologies = mDialogView.findViewById(R.id.rv_terminology);
+        rvRelatedQues = mDialogView.findViewById(R.id.rv_assoc_question);
+        tvTermTitle = mDialogView.findViewById(R.id.terminologies);
+        tvQuesTitle = mDialogView.findViewById(R.id.assoc_question);
+        ivClose = mDialogView.findViewById(R.id.iv_close);
+        ivFavorite = mDialogView.findViewById(R.id.iv_fav_icon);
+        ivFavorite.setVisibility(View.GONE);
     }
 
     private void deleteItem(int index, String question){

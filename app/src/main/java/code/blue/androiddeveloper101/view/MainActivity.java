@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
         MenuItem searchViewItem = menu.findItem(R.id.search);
         // Get the SearchView and set the searchable configuration
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        SearchView searchView = (SearchView) searchViewItem.getActionView();
+        searchView = (SearchView) searchViewItem.getActionView();
         searchView.setQueryHint("Search for Product,Brands...");
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
 
