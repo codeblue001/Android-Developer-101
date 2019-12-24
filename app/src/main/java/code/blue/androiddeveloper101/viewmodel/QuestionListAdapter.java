@@ -150,19 +150,7 @@ public class QuestionListAdapter extends RecyclerView.Adapter<QuestionListAdapte
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 prepareAnswerDialog();
-
-//                CustomAnswerAdapter terminologyAdapter, relatedQuesAdapter;
-//                TextView tvMainQuestion = mDialogView.findViewById(R.id.main_question);
-//                TextView tvMainAnswer = mDialogView.findViewById(R.id.tv_main_answer);
-//                RecyclerView rvTerminologies = mDialogView.findViewById(R.id.rv_terminology);
-//                RecyclerView rvRelatedQues = mDialogView.findViewById(R.id.rv_assoc_question);
-//                TextView tvTermTitle = mDialogView.findViewById(R.id.terminologies);
-//                TextView tvQuesTitle = mDialogView.findViewById(R.id.assoc_question);
-//                ImageView ivClose = mDialogView.findViewById(R.id.iv_close);
-//                ImageView ivFavorite = mDialogView.findViewById(R.id.iv_fav_icon);
-//                ivFavorite.setVisibility(View.GONE);
 
                 tvMainQuestion.setText(Html.fromHtml(tempQuestionPojo.question));
                 tvMainAnswer.setText(tempQuestionPojo.answer);
